@@ -23,5 +23,6 @@ const loginProc = (userinfo, callback) => {
 };
 
 module.exports = {
+  checkId,
   loginProc,
 };
