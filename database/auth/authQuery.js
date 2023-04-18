@@ -22,7 +22,30 @@ const loginProc = (userinfo, callback) => {
   });
 };
 
+// 회원가입
+const join = (userinfo, callback) => {
+  const sql = `INSERT INTO user (id, password, name, email, grade_idx) VALUES(?, ?, ?, ?, ?)`;
+  db.getConnection((conn) => {
+    conn.query(
+      sql,
+      [
+        userinfo.userid,
+        userinfo.userpw,
+        userinfo.username,
+        userinfo.useremail,
+        userinfo,
+        usergrade,
+      ],
+      (err, rows) => {
+        err ? console.log(err) : callback(rows ? rows.length > 0 : false);
+      }
+    );
+    conn.release();
+  });
+};
+
 module.exports = {
   checkId,
   loginProc,
+  join,
 };
