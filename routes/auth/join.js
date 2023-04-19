@@ -1,5 +1,5 @@
 const express = require("express");
-const db = require("../database/dbQuery");
+const db = require("../../database/dbQuery");
 const router = express.Router();
 
 // 회원가입

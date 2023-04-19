@@ -1,3 +1,4 @@
+const crypto = require("crypto");
 const db = require("./../dbPool");
 
 // 아이디 확인
@@ -13,6 +14,9 @@ const checkId = (userinfo, callback) => {
 
 // 로그인
 const loginProc = (userinfo, callback) => {
+  console.log(
+    crypto.createHash("sha512").update(userinfo.userpw).digest("base64")
+  );
   const sql = `SELECT idx FROM user WHERE id=? AND password=? AND del_check=0`;
   db.getConnection((conn) => {
     conn.query(sql, [userinfo.userid, userinfo.userpw], (err, rows) => {
@@ -24,6 +28,10 @@ const loginProc = (userinfo, callback) => {
 
 // 회원가입
 const join = (userinfo, callback) => {
+  const hashPw = crypto
+    .createHash("sha512")
+    .update(userinfo.userpw)
+    .digest("base64");
   const sql = `INSERT INTO user (id, password, name, email, grade_idx) VALUES(?, ?, ?, ?, ?)`;
   db.getConnection((conn) => {
     conn.query(

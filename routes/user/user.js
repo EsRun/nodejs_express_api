@@ -1,5 +1,5 @@
 const express = require("express");
-const db = require("../database/dbQuery");
+const db = require("../../database/dbQuery");
 const router = express.Router();
 
 // 직원 정보
