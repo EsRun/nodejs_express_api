@@ -17,6 +17,8 @@ app.use(helmet());
 app.use(express.json());
 
 app.use("/user", userRouter);
+app.use("/auth/join", joinRouter);
+app.use("/auth/login", loginRouter);
 
 const PORT = process.env.SERVER_PORT;
 
