@@ -22,7 +22,7 @@ const loginProc = (userinfo, callback) => {
   });
 };
 
-// 직원 정보
+// 사용자 리스트
 const getMember = async (userinfo, callback) => {
   const query = "%" + userinfo.text + "%";
   const sql = `SELECT 
