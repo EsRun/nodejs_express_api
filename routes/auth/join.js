@@ -1,5 +1,5 @@
 const express = require("express");
-const db = require("../../database/dbQuery");
+const db = require("../../database/auth/authQuery");
 const router = express.Router();
 
 // 아이디 확인

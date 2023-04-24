@@ -2,10 +2,10 @@ const crypto = require("crypto");
 const db = require("./../dbPool");
 
 // 아이디 확인
-const checkId = (userinfo, callback) => {
+const checkId = (userInfo, callback) => {
   const sql = `SELECT idx FROM user WHERE id=? AND del_check=0`;
   db.getConnection((conn) => {
-    conn.query(sql, [userinfo.userid], (err, rows) => {
+    conn.query(sql, [userInfo.userId], (err, rows) => {
       err ? console.log(err) : callback(rows ? rows.length > 0 : false);
     });
     conn.release();
@@ -13,13 +13,13 @@ const checkId = (userinfo, callback) => {
 };
 
 // 로그인
-const loginProc = (userinfo, callback) => {
+const loginProc = (userInfo, callback) => {
   console.log(
-    crypto.createHash("sha512").update(userinfo.userpw).digest("base64")
+    crypto.createHash("sha512").update(userInfo.userPw).digest("base64")
   );
   const sql = `SELECT idx FROM user WHERE id=? AND password=? AND del_check=0`;
   db.getConnection((conn) => {
-    conn.query(sql, [userinfo.userid, userinfo.userpw], (err, rows) => {
+    conn.query(sql, [userInfo.userId, userInfo.userPw], (err, rows) => {
       err ? console.log(err) : callback(rows ? rows.length > 0 : false);
     });
     conn.release();
@@ -27,21 +27,21 @@ const loginProc = (userinfo, callback) => {
 };
 
 // 회원가입
-const join = (userinfo, callback) => {
+const join = (userInfo, callback) => {
   const hashPw = crypto
     .createHash("sha512")
-    .update(userinfo.userpw)
+    .update(userInfo.userPw)
     .digest("base64");
   const sql = `INSERT INTO user (id, password, name, email, grade_idx) VALUES(?, ?, ?, ?, ?)`;
   db.getConnection((conn) => {
     conn.query(
       sql,
       [
-        userinfo.userid,
-        userinfo.userpw,
-        userinfo.username,
-        userinfo.useremail,
-        userinfo,
+        userInfo.userId,
+        userInfo.userPw,
+        userInfo.userName,
+        userInfo.userEmail,
+        userInfo,
         usergrade,
       ],
       (err, rows) => {
