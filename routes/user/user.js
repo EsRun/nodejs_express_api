@@ -3,7 +3,7 @@ const db = require("../../database/user/userQuery");
 const router = express.Router();
 
 // 사용자 리스트
-router.get("/userList", function (req, res, next) {
+router.get("/userlist", function (req, res, next) {
   const userinfo = req.query;
   db.getMember(userinfo, (rows) => {
     res.send(rows);
@@ -11,8 +11,8 @@ router.get("/userList", function (req, res, next) {
 });
 
 // 사용자 정보
-router.get("/user/:id", function (req, res, next) {
-  const userinfo = req.query;
+router.get("/:idx", function (req, res, next) {
+  const userinfo = req.params;
   db.getUser(userinfo, (rows) => {
     res.send(rows);
   });

@@ -1,6 +1,6 @@
 require("dotenv").config();
 const express = require("express");
-const userRouter = require("./routes/user");
+const userRouter = require("./routes/user/user");
 const joinRouter = require("./routes/auth/join");
 const loginRouter = require("./routes/auth/login");
 const helmet = require("helmet");
@@ -18,7 +18,7 @@ app.use(express.json());
 
 app.use("/user", userRouter);
 app.use("/auth/join", joinRouter);
-app.use("/auth/login", loginRouter);
+app.use("/auth", loginRouter);
 
 const PORT = process.env.SERVER_PORT;
 

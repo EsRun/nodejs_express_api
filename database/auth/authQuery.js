@@ -14,9 +14,11 @@ const checkId = (userInfo, callback) => {
 
 // 로그인
 const loginProc = (userInfo, callback) => {
-  console.log(
-    crypto.createHash("sha512").update(userInfo.userPw).digest("base64")
-  );
+  const shaPW = crypto
+    .createHash("sha512")
+    .update(userInfo.userPw)
+    .digest("base64");
+
   const sql = `SELECT idx FROM user WHERE id=? AND password=? AND del_check=0`;
   db.getConnection((conn) => {
     conn.query(sql, [userInfo.userId, userInfo.userPw], (err, rows) => {

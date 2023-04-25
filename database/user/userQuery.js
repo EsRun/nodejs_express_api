@@ -22,7 +22,7 @@ const getMember = async (userInfo, callback) => {
 };
 
 // 사용자 정보
-const getUser = async (userInfo, callack) => {
+const getUser = async (userInfo, callback) => {
   const sql = `SELECT 
       a.name as userName,
       a.id as userId,
@@ -36,7 +36,7 @@ const getUser = async (userInfo, callack) => {
       WHERE a.idx = ?
       and a.del_check=0`;
   db.getConnection((conn) => {
-    conn.query(sql, [userInfo.userIdx], (err, rows) => {
+    conn.query(sql, [userInfo.idx], (err, rows) => {
       err ? console.log(err) : callback(rows);
     });
     conn.release(); //사용후 connection 객체 반환
