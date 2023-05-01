@@ -6,7 +6,7 @@ const checkId = (userInfo, callback) => {
   const sql = `SELECT idx FROM user WHERE id=? AND del_check=0`;
   db.getConnection((conn) => {
     conn.query(sql, [userInfo.userId], (err, rows) => {
-      err ? console.log(err) : callback(rows ? rows.length > 0 : false);
+      err ? callback(err) : callback(rows ? rows.length > 0 : false);
     });
     conn.release();
   });
@@ -22,7 +22,7 @@ const loginProc = (userInfo, callback) => {
   const sql = `SELECT idx FROM user WHERE id=? AND password=? AND del_check=0`;
   db.getConnection((conn) => {
     conn.query(sql, [userInfo.userId, userInfo.userPw], (err, rows) => {
-      err ? console.log(err) : callback(rows ? rows.length > 0 : false);
+      err ? callback(err) : callback(rows ? rows.length > 0 : false);
     });
     conn.release();
   });
@@ -47,7 +47,7 @@ const join = (userInfo, callback) => {
         usergrade,
       ],
       (err, rows) => {
-        err ? console.log(err) : callback(rows ? rows.length > 0 : false);
+        err ? callback(err) : callback(rows ? rows.length > 0 : false);
       }
     );
     conn.release();

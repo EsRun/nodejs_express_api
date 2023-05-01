@@ -15,9 +15,9 @@ const getMember = async (userInfo, callback) => {
         and a.del_check=0`;
   db.getConnection((conn) => {
     conn.query(sql, [query], (err, rows) => {
-      err ? console.log(err) : callback(rows);
+      err ? callback(err) : callback(rows);
     });
-    conn.release(); //사용후 connection 객체 반환
+    conn.release();
   });
 };
 
@@ -37,9 +37,9 @@ const getUser = async (userInfo, callback) => {
       and a.del_check=0`;
   db.getConnection((conn) => {
     conn.query(sql, [userInfo.idx], (err, rows) => {
-      err ? console.log(err) : callback(rows);
+      err ? callback(err) : callback(rows);
     });
-    conn.release(); //사용후 connection 객체 반환
+    conn.release();
   });
 };
 
